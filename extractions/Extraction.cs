@@ -16,17 +16,18 @@ namespace univer.extractions
             this.Errors = new List<string>();
         }
 
-        public void getUsers() 
+        public List<User> getUsers() 
         {
             //consulta a interbase
+
+            return new List<User>();
         }
         public void toCSV(string path)
         {
             string filename = string.Format("{0}usuarios.csv", path);
       
             if (this.Users.Count() > 0) 
-            {
-    
+            {    
                 string header   = "username,password,Firstname,Lastname ,email,course1,group1,TYPE1";
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(filename))
                 {
@@ -53,7 +54,10 @@ namespace univer.extractions
 
             throw new Exception("No hay usuarios a exportar");
         }
-        public void toREST() { }
+        public void toREST() 
+        {
+        
+        }
 
     }
 }

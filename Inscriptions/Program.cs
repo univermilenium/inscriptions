@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using univer.extractions;
+using univer.moodle;
 
 namespace Inscriptions
 {
@@ -11,6 +12,7 @@ namespace Inscriptions
     {
         static void Main(string[] args)
         {
+            /*
             Extraction ex = new Extraction();
             User user = new User();
 
@@ -26,7 +28,18 @@ namespace Inscriptions
             ex.Users.Add(user);
 
             ex.toCSV(@"C:\Users\E-LEARNING5\Documents\");
-            
+             */
+
+
+            MoodleUser user = new MoodleUser();
+            user.firstname = "moi";
+            user.lastname = "rangel";
+            user.email = "mraasdfngel@gmail.com";
+            user.username = "olakease";
+
+            Moodle.Instance.token = "a470930b7e19172703769387b93c761e";
+            Moodle.Instance.domain = "elearning.univermilenium.edu.mx";
+            Moodle.Instance.CreateUser(user);
         }
     }
 }
