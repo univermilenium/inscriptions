@@ -77,10 +77,13 @@ namespace univer.extractions
         private void IsValidType() 
         {
             //solo 1 y 3 (student y non-editing teachear)
-            if (this.type1 != 1 || this.type1 != 3)
+            if (this.type1 == 1 || this.type1 == 3 )
             {
-                throw new Exception(string.Format("Tipo de usuario no válido: {0}", this.type1.ToString()));
+                return;
             }
+
+            throw new Exception(string.Format("Tipo de usuario no válido: {0}", this.type1.ToString()));
+            
         }
 
         private bool IsValidEmail()

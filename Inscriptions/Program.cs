@@ -19,11 +19,13 @@ namespace Inscriptions
             user.lastname = "rangel";
             user.password = "hashhash";
             user.group1 = "SPEG-5454545";
+            user.email = "moises.rangel@gmail.com";
+            user.course1 = "SHALALA";
             user.type1 = 1;
 
             ex.Users.Add(user);
 
-            ex.toCSV("C:\\");
+            ex.toCSV(@"C:\Users\E-LEARNING5\Documents\");
             
         }
     }
