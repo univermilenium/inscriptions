@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Inscriptions
+namespace univer.extractions
 {
-    class Program
+    public class Extraction
     {
-        static void Main(string[] args)
-        {
+        public Extraction()  {  }
 
-        }
+
     }
 }
