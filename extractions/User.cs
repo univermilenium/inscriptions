@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace extractions
+namespace univer.extractions
 {
-    class User
+    public class User
     {
         public string username  { get; set; }
         public string password  { get; set; }
@@ -17,7 +17,7 @@ namespace extractions
         public string group1    { get; set; }
         public int    type1     { get; set; }
 
-        public void validate() 
+        public bool isValid() 
         {
             try 
             {
@@ -27,10 +27,12 @@ namespace extractions
                 this.IsValidType();
                 this.IsValidUsername();
                 this.IsValidFullName();
+
+                return true;
             }
             catch (Exception oe)
             {
-                throw new Exception(string.Format("Registro no válido. %s", oe.Message.ToString()));
+                throw new Exception(string.Format("Registro no válido. {0}", oe.Message.ToString()));
             }
         }
 
@@ -68,7 +70,7 @@ namespace extractions
             string first = this.group1.ToLower()[0].ToString();
             if (!first.Equals("s"))
             {
-                throw new Exception(string.Format("Grupo no válido: %s", this.group1));
+                throw new Exception(string.Format("Grupo no válido: {0}", this.group1));
             }
         }
 
@@ -77,7 +79,7 @@ namespace extractions
             //solo 1 y 3 (student y non-editing teachear)
             if (this.type1 != 1 || this.type1 != 3)
             {
-                throw new Exception(string.Format("Tipo de usuario no válido: %s", this.type1.ToString()));
+                throw new Exception(string.Format("Tipo de usuario no válido: {0}", this.type1.ToString()));
             }
         }
 
@@ -90,7 +92,7 @@ namespace extractions
             }
             catch
             {
-                throw new Exception(string.Format("Email no válido: %s", this.email));
+                throw new Exception(string.Format("Email no válido: {0}", this.email));
             }
         }        
     }
