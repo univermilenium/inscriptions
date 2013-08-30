@@ -31,7 +31,7 @@ namespace univer.moodle
          */
         public List<MoodleResponse> CreateUser(MoodleUser user) 
         {
-            String postData      = String.Format("users[0][username]={0}&users[0][password]={1}&users[0][firstname]={2}&users[0][lastname]={3}&users[0][email]={4}", user.username, user.password, user.firstname, user.lastname, user.email);
+            String postData      = string.Format("users[0][username]={0}&users[0][password]={1}&users[0][firstname]={2}&users[0][lastname]={3}&users[0][email]={4}", user.username, user.password, user.firstname, user.lastname, user.email);
             string createRequest = string.Format("http://{0}/webservice/rest/server.php?wstoken={1}&wsfunction={2}&moodlewsrestformat=json", this.domain, this.token, "core_user_create_users");
 
             // Call Moodle REST Service
