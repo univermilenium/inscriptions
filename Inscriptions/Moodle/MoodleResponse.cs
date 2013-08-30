@@ -8,8 +8,6 @@ namespace univer.moodle
 {
     public abstract class MoodleResponse
     {
-        public string response { get; set; }
         public string id { get; set; }
-        public string username { get; set; }
     }
 }

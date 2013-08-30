@@ -15,9 +15,18 @@ namespace univer.moodle
     {
         public string token { get; set; }
         public string domain { get; set; }
+        
+        //collect all errors
+        public List<MoodleException> Exceptions { get; set; }
+
         static readonly Moodle instance = new Moodle();
         static Moodle(){}
-        Moodle() {}
+       
+        Moodle() 
+        {
+            this.Exceptions = new List<MoodleException>();
+        }
+
         public static Moodle Instance
         {
             get
@@ -29,8 +38,11 @@ namespace univer.moodle
         /*
          * based on https://moodle.org/mod/forum/discuss.php?d=210866
          */
-        public List<MoodleResponse> CreateUser(MoodleUser user) 
+        public List<MoodleCreateUserResponse> CreateUser(MoodleUser user) 
         {
+
+            List<MoodleCreateUserResponse> newUsers = new List<MoodleCreateUserResponse>();
+
             String postData      = string.Format("users[0][username]={0}&users[0][password]={1}&users[0][firstname]={2}&users[0][lastname]={3}&users[0][email]={4}", user.username, user.password, user.firstname, user.lastname, user.email);
             string createRequest = string.Format("http://{0}/webservice/rest/server.php?wstoken={1}&wsfunction={2}&moodlewsrestformat=json", this.domain, this.token, "core_user_create_users");
 
@@ -60,15 +72,15 @@ namespace univer.moodle
             if (contents.Contains("exception"))
             {
                 MoodleException moodleError   = serializer.Deserialize<MoodleException>(contents);
-                List<MoodleResponse> response = new List<MoodleResponse>();
-                response.Add(moodleError);
-                return response;
+                this.Exceptions.Add(moodleError);
             }
             else
             {
-                List<MoodleResponse> newUsers = serializer.Deserialize<List<MoodleResponse>>(contents);
-                return newUsers;
+                 newUsers = serializer.Deserialize<List<MoodleCreateUserResponse>>(contents);
+                
             }
+
+            return newUsers;
         }
     }
 }

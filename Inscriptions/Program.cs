@@ -34,8 +34,8 @@ namespace Inscriptions
             MoodleUser user = new MoodleUser();
             user.firstname = "moi";
             user.lastname = "rangel";
-            user.email = "mraasdfngel@gmail.com";
-            user.username = "olakease";
+            user.email = "kvajjjva@gmail.com";
+            user.username = "olakeassdfge";
 
             Moodle.Instance.token = "a470930b7e19172703769387b93c761e";
             Moodle.Instance.domain = "elearning.univermilenium.edu.mx";
