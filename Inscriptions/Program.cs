@@ -65,6 +65,8 @@ namespace Inscriptions
           // MoodleCourse course =  Moodle.Instance.getCourse("CRIM0103");
 
 
+            string test = Moodle.Instance.getSingleValueResponse("groupid");
+
             
         }
     }

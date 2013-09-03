@@ -37,6 +37,11 @@ namespace univer.extractions
             }
         }
 
+        public string toString() 
+        {
+            return string.Format("matricula: {0}, grupo: {1}, curso: {2}", this.username, this.group1, this.course1);
+        }
+
         private void IsValidFullName()
         {
             if (this.firstname.Equals(string.Empty)) 

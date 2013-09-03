@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using univer.moodle;
+
 namespace univer.extractions
 {
     public class Extraction
@@ -58,14 +60,35 @@ namespace univer.extractions
         {
 
             //obtener id del curso
-
             //obtener id del grupo
-
-            //obtener id del usuario
-
+            //obtener id del usuari
             //enrolar idusuario a curso
-
             //enrolar idusuario a grupo
+
+            List<string> groups = new List<string>();
+            List<string> errors = new List<string>();
+
+            if (this.Users.Count() > 0)
+            {
+                foreach (User user in this.Users)
+                {
+                    try
+                    {
+                        //obtener id del curso.
+                        MoodleCourse course = Moodle.Instance.getCourse(user.course1);
+                        
+                        //crear - obtener grupo
+                        if (Moodle.Instance.createGroup(course, user.course1, "Grupo para " + course.name)) 
+                        {
+                            
+                        }
+                    }
+                    catch
+                    {
+                        this.Errors.Add(user.toString());
+                    }
+                }
+            }
         }
 
     }

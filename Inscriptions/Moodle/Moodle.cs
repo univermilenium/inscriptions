@@ -9,6 +9,8 @@ using System.Runtime.Serialization.Json;
 using System.Web.Script.Serialization;
 using System.Web;
 
+using System.Xml.Linq;
+
 namespace univer.moodle
 {
     public sealed class Moodle
@@ -16,6 +18,7 @@ namespace univer.moodle
         public string token { get; set; }
         public string domain { get; set; }
         public string contents { get; set; }
+        public XDocument xmlresponse { get; set; }
         
         //collect all errors
         public List<MoodleException> Exceptions { get; set; }
@@ -126,6 +129,36 @@ namespace univer.moodle
         {
             string postData = string.Format("groups[0][courseid]={0}&groups[0][name]={1}&groups[0][description]={2}", course.id, name, description);
             return this.executeWs(postData, "core_group_create_groups");
+        }
+
+        public string getSingleValueResponse(string key)
+        {
+            string val = string.Empty;
+            
+            if (this.xmlresponse == null) 
+            {
+                this.parseResponse();
+            }
+
+            foreach (XElement xe in this.xmlresponse.Descendants("KEY"))
+            {
+                if (xe.Attribute("name").Value.Equals(key)) 
+                {
+                    val = xe.Value.ToString();
+                    break;
+                }
+            }
+            return val;
+        }
+
+        private void parseResponse() 
+        {   
+            if (this.contents == null) 
+            {
+                throw new Exception("No hay respuesta del servidor.");
+            }
+
+           this.xmlresponse = XDocument.Parse(this.contents);  
         }
     }
 }
