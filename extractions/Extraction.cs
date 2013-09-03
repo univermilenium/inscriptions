@@ -16,11 +16,11 @@ namespace univer.extractions
             this.Errors = new List<string>();
         }
 
-        public List<User> getUsers() 
+        public Extraction getUsers() 
         {
             //consulta a interbase
 
-            return new List<User>();
+            return this;
         }
         public void toCSV(string path)
         {
@@ -56,7 +56,16 @@ namespace univer.extractions
         }
         public void toREST() 
         {
-        
+
+            //obtener id del curso
+
+            //obtener id del grupo
+
+            //obtener id del usuario
+
+            //enrolar idusuario a curso
+
+            //enrolar idusuario a grupo
         }
 
     }
