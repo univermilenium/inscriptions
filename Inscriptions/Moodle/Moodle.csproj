@@ -42,9 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Moodle.cs" />
-    <Compile Include="MoodleCreateUserResponse.cs" />
+    <Compile Include="MoodleCourse.cs" />
+    <Compile Include="Responses\MoodleCreateUserResponse.cs" />
     <Compile Include="MoodleException.cs" />
-    <Compile Include="MoodleResponse.cs" />
+    <Compile Include="MoodleGroup.cs" />
+    <Compile Include="Responses\MoodleEnrolUserToCourseResponse.cs" />
+    <Compile Include="Responses\MoodleResponse.cs" />
     <Compile Include="MoodleUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

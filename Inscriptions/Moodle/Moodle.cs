@@ -35,6 +35,53 @@ namespace univer.moodle
             }
         }
 
+        private string getRequestUrl(string wsfunction)
+        {
+            return string.Format("http://{0}/webservice/rest/server.php?wstoken={1}&wsfunction={2}&moodlewsrestformat=json", this.domain, this.token, wsfunction);
+        }
+
+        private HttpWebRequest request(string requestUrl) 
+        {
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(requestUrl);
+            req.Method         = "POST";
+            req.ContentType    = "application/x-www-form-urlencoded";
+            return req;
+        }
+
+        public bool EnrolUserToCourse(MoodleUser user, MoodleCourse course, int roleid, int? timestart, int? timeend, int? suspend) 
+        {
+            bool status = false;
+            
+            string postData      = string.Format("enrolments[0][roleid]={0}&enrolments[0][userid]={1}&enrolments[0][courseid]={2}&enrolments[0][timestart]={3}&enrolments[0][timeend]={4}&enrolments[0][suspend]={5}", roleid, user.id, course.id, timestart, timeend, suspend);
+            HttpWebRequest req   = this.request(this.getRequestUrl("enrol_manual_enrol_users"));
+
+            byte[] formData = UTF8Encoding.UTF8.GetBytes(postData);
+            req.ContentLength = formData.Length;
+
+            using (Stream post = req.GetRequestStream())
+            {
+                post.Write(formData, 0, formData.Length);
+            }
+
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            Stream resStream     = resp.GetResponseStream();
+            StreamReader reader  = new StreamReader(resStream);
+            string contents      = reader.ReadToEnd();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            if (contents.Contains("exception"))
+            {
+                MoodleException moodleError = serializer.Deserialize<MoodleException>(contents);
+                this.Exceptions.Add(moodleError);
+            }
+            else
+            {
+                status = true;
+            }
+
+            return status;
+        }
+
         /*
          * based on https://moodle.org/mod/forum/discuss.php?d=210866
          */
@@ -77,7 +124,6 @@ namespace univer.moodle
             else
             {
                  newUsers = serializer.Deserialize<List<MoodleCreateUserResponse>>(contents);
-                
             }
 
             return newUsers;

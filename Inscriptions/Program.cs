@@ -30,16 +30,33 @@ namespace Inscriptions
             ex.toCSV(@"C:\Users\E-LEARNING5\Documents\");
              */
 
-
+            // test para CreateUser
+            /*
             MoodleUser user = new MoodleUser();
             user.firstname = "moi";
             user.lastname = "rangel";
-            user.email = "kvajjjva@gmail.com";
-            user.username = "olakeassdfge";
+            user.email = "test23@gmail.com";
+            user.username = "test23";
 
             Moodle.Instance.token = "a470930b7e19172703769387b93c761e";
             Moodle.Instance.domain = "elearning.univermilenium.edu.mx";
             Moodle.Instance.CreateUser(user);
+            */
+
+            MoodleUser user = new MoodleUser();
+            user.id = 1035;
+            user.firstname = "moi";
+            user.lastname = "rangel";
+            user.email = "test23@gmail.com";
+            user.username = "test23";
+
+            MoodleCourse course = new MoodleCourse();
+            course.id = 32;
+
+            Moodle.Instance.token = "a470930b7e19172703769387b93c761e";
+            Moodle.Instance.domain = "elearning.univermilenium.edu.mx";
+            Moodle.Instance.EnrolUserToCourse(user, course, 1, 0, 0, 0);
+            
         }
     }
 }

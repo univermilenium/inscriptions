@@ -8,6 +8,7 @@ namespace univer.moodle
 {
     public class MoodleUser
     {
+        public int id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public string firstname { get; set; }
