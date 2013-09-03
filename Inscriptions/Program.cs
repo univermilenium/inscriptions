@@ -43,6 +43,7 @@ namespace Inscriptions
             Moodle.Instance.CreateUser(user);
             */
 
+            /*
             MoodleUser user = new MoodleUser();
             user.id = 1035;
             user.firstname = "moi";
@@ -56,6 +57,14 @@ namespace Inscriptions
             Moodle.Instance.token = "a470930b7e19172703769387b93c761e";
             Moodle.Instance.domain = "elearning.univermilenium.edu.mx";
             Moodle.Instance.EnrolUserToCourse(user, course, 1, 0, 0, 0);
+             */
+
+           // UniverCourses courses = new UniverCourses();
+           // int test = courses.getID("CRIM0103");
+
+          // MoodleCourse course =  Moodle.Instance.getCourse("CRIM0103");
+
+
             
         }
     }

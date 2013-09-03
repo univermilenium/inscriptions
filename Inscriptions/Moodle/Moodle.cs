@@ -48,11 +48,6 @@ namespace univer.moodle
             req.ContentType    = "application/x-www-form-urlencoded";
             return req;
         }
-
-        public bool createGroup() 
-        {
-            return true;
-        }
         
         /*
         * based on https://moodle.org/mod/forum/discuss.php?d=210866
@@ -91,6 +86,24 @@ namespace univer.moodle
             return status;
         }
 
+        public MoodleCourse getCourse(string shortname) 
+        {
+            MoodleCourse mcourse  = new MoodleCourse();
+            UniverCourses courses = new UniverCourses();
+
+            try
+            {
+                mcourse.id = courses.getID(shortname);
+                mcourse.name = shortname;
+            }
+            catch (System.Exception oe) 
+            {
+                throw new Exception(string.Format("No existe el curso: {0}. {1}", shortname, oe.Message.ToString()));
+            }
+            
+            return mcourse;
+        }
+        
         public bool addGroupMembers(MoodleUser user, MoodleGroup group) 
         {
             string postData = string.Format("members[0][groupid]={0}&members[0][userid]={1}", group.id, user.id);
@@ -107,6 +120,12 @@ namespace univer.moodle
         {
             string postData      = string.Format("users[0][username]={0}&users[0][password]={1}&users[0][firstname]={2}&users[0][lastname]={3}&users[0][email]={4}", user.username, user.password, user.firstname, user.lastname, user.email);
             return this.executeWs(postData, "core_user_create_users");
+        }
+
+        public bool createGroup(MoodleCourse course, string name, string description)
+        {
+            string postData = string.Format("groups[0][courseid]={0}&groups[0][name]={1}&groups[0][description]={2}", course.id, name, description);
+            return this.executeWs(postData, "core_group_create_groups");
         }
     }
 }
