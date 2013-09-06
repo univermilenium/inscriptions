@@ -70,8 +70,19 @@ namespace Inscriptions
             //Extraction ex = new Extraction();
             //ex.toREST();
 
-            Extraction ex = new Extraction();
-            List<User> oUsers = ex.getUsers(Querys.IXTAPA);
+            Console.WriteLine("Presione Enter para iniciar la extracción de alumnos...");
+            Console.ReadLine();
+            try
+            {
+                Extraction ex = new Extraction();
+                ex.getUsers(Querys.HIDALGO).toCSV("c:\\");
+            }
+            catch (Exception oe) 
+            {
+                Console.WriteLine(oe.Message.ToString());
+                Console.ReadLine();
+            }
+
             
         }
     }

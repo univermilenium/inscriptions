@@ -61,36 +61,63 @@ namespace univer.extractions
 
         public Extraction getUsers(string plantel) 
         {
-            string connectionstring = "ServerType=0;User=SYSDBA;Password=masterkey;Size=4096;Dialect=3;Pooling=FALSE;database=localhost:c:\\DATOS.GDB";
+            string connectionstring = "ServerType=0;User=SYSDBA;Password=masterkey;Size=4096;Dialect=3;Pooling=FALSE;database=localhost:c:\\escolar\\DATOS.GDB";
             List<object[]> usersq = this.QueryFb(connectionstring, this.getQuery(plantel));
+            //List<object[]> usersq = this.QueryFb(connectionstring, "select * from alumnos where nombre = 'MARIANA'");
             
             if (usersq.Count > 0) 
             {
+                Console.WriteLine(string.Format("{0} usuarios a subir...", usersq.Count));
+                
+                int cont = 0;
                 foreach (object user in usersq) 
                 {
                     User MyUser = new User();
 
-                    MyUser.username   = user.ToString();
-                    MyUser.password   = user.ToString();
-                    MyUser.firstname  = user.ToString();
-                    MyUser.lastname   = user.ToString();
-                    MyUser.course1    = user.ToString();
-                    MyUser.group1     = user.ToString();
-                    MyUser.type1      = 1;
+                    MyUser.username   = usersq[cont][0].ToString();
+                    MyUser.password   = usersq[cont][1].ToString(); 
+                    MyUser.firstname  = usersq[cont][2].ToString(); 
+                    MyUser.lastname   = usersq[cont][3].ToString(); 
+                    MyUser.course1    = usersq[cont][4].ToString(); 
+                    MyUser.group1     = usersq[cont][5].ToString();
 
-                    this.Users.Add(MyUser);
+                    try
+                    {
+                        MyUser.type1 = int.Parse(usersq[cont][5].ToString());
+                    }
+                    catch 
+                    {
+                        MyUser.type1 = 0;
+                    }
+
+                    try
+                    {
+                        if(MyUser.isValid())
+                        {
+                            this.Users.Add(MyUser);
+                            Console.WriteLine(string.Format("Se agrega {} al envio..."), MyUser.username);
+                        }
+                    }
+                    catch(Exception oe) 
+                    {
+                        this.Errors.Add(oe.Message.ToString());
+                    }
+                    
+                    cont++;
                 }
             }
 
             return this;
         }
 
-private List<object[]> QueryFb(string connectionstring, string query) 
+        private List<object[]> QueryFb(string connectionstring, string query) 
         {   
             try 
             {
                 using (FbConnection dbConn = new FbConnection(connectionstring)) 
                 {
+                    Console.WriteLine("Consultando Control Escolar");
+
                     dbConn.Open();
 
                     using (var command = dbConn.CreateCommand())
@@ -117,12 +144,14 @@ private List<object[]> QueryFb(string connectionstring, string query)
            
         }
         
-public void toCSV(string path)
+        public void toCSV(string path)
         {
             string filename = string.Format("{0}usuarios.csv", path);
       
             if (this.Users.Count() > 0) 
-            {    
+            {
+                Console.WriteLine(string.Format("Exportando {} registros de alumnos a formato csv.", this.Users.Count()));
+
                 string header   = "username,password,Firstname,Lastname ,email,course1,group1,TYPE1";
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(filename))
                 {
