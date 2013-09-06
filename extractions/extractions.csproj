@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FirebirdSql.Data.FirebirdClient">
+      <HintPath>..\..\..\..\Downloads\NETProvider-3.1.1.0-NET40\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -42,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Extraction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Querys.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

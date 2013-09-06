@@ -16,7 +16,7 @@ namespace Inscriptions
             Extraction ex = new Extraction();
             User user = new User();
 
-            user.username = "4512454512";
+            user.username = "451e2454512";
             user.firstname = "moises";
             user.lastname = "rangel";
             user.password = "hashhash";
@@ -65,8 +65,13 @@ namespace Inscriptions
           // MoodleCourse course =  Moodle.Instance.getCourse("CRIM0103");
 
 
-            string test = Moodle.Instance.getSingleValueResponse("groupid");
+            //string test = Moodle.Instance.getSingleValueResponse("groupid");
 
+            //Extraction ex = new Extraction();
+            //ex.toREST();
+
+            Extraction ex = new Extraction();
+            List<User> oUsers = ex.getUsers(Querys.IXTAPA);
             
         }
     }
