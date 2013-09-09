@@ -18,6 +18,7 @@ namespace univer.extractions
     {
         public List<User> Users;
         public List<string> Errors;
+        public string plantel;
         
         public Extraction()  
         {
@@ -32,26 +33,31 @@ namespace univer.extractions
             if (plantel == Querys.SALUD)
             {
                 query = Querys.salud();
+                this.plantel = Querys.SALUD.ToLower();
             }
 
             if (plantel == Querys.IXTAPA)
             {
                 query = Querys.ixtapaluca();
+                this.plantel = Querys.IXTAPA.ToLower();
             }
 
             if (plantel == Querys.NEZA)
             {
                 query = Querys.neza();
+                this.plantel = Querys.NEZA.ToLower();
             }
 
             if (plantel == Querys.RAYON)
             {
                 query = Querys.rayon();
+                this.plantel = Querys.RAYON.ToLower();
             }
 
             if (plantel == Querys.HIDALGO)
             {
                 query = Querys.hidalgo();
+                this.plantel = Querys.HIDALGO.ToLower();
             }
 
             if (plantel.Equals(string.Empty)) { throw new Exception(string.Format("No existe el plantel: "+plantel)); }
@@ -63,7 +69,6 @@ namespace univer.extractions
         {
             string connectionstring = "ServerType=0;User=SYSDBA;Password=masterkey;Size=4096;Dialect=3;Pooling=FALSE;database=localhost:c:\\escolar\\DATOS.GDB";
             List<object[]> usersq = this.QueryFb(connectionstring, this.getQuery(plantel));
-            //List<object[]> usersq = this.QueryFb(connectionstring, "select * from alumnos where nombre = 'MARIANA'");
             
             if (usersq.Count > 0) 
             {
@@ -75,11 +80,13 @@ namespace univer.extractions
                     User MyUser = new User();
 
                     MyUser.username   = usersq[cont][0].ToString();
-                    MyUser.password   = usersq[cont][1].ToString(); 
-                    MyUser.firstname  = usersq[cont][2].ToString(); 
-                    MyUser.lastname   = usersq[cont][3].ToString(); 
-                    MyUser.course1    = usersq[cont][4].ToString(); 
-                    MyUser.group1     = usersq[cont][5].ToString();
+                    MyUser.password   = usersq[cont][0].ToString(); 
+                    MyUser.firstname  = usersq[cont][1].ToString();
+                    MyUser.lastname   = string.Format("{0} {1}", usersq[cont][2].ToString(), usersq[cont][3].ToString());
+                    MyUser.email      = usersq[cont][4].ToString().ToLower();
+                    MyUser.course1    = usersq[cont][6].ToString();
+                    MyUser.group1     = string.Format("{0}-{1}", usersq[cont][5].ToString(), this.plantel); 
+                   
 
                     try
                     {
@@ -87,20 +94,22 @@ namespace univer.extractions
                     }
                     catch 
                     {
-                        MyUser.type1 = 0;
+                        MyUser.type1 = 1;
                     }
 
                     try
                     {
-                        if(MyUser.isValid())
-                        {
+                        bool isvalid = MyUser.isValid();
+                        if(isvalid)
+                        {   
                             this.Users.Add(MyUser);
-                            Console.WriteLine(string.Format("Se agrega {} al envio..."), MyUser.username);
+                            Console.WriteLine(string.Format("Se agrega {0} al envio...", MyUser.username));
                         }
                     }
                     catch(Exception oe) 
                     {
                         this.Errors.Add(oe.Message.ToString());
+                        Console.WriteLine(oe.Message.ToString());
                     }
                     
                     cont++;
@@ -147,12 +156,12 @@ namespace univer.extractions
         public void toCSV(string path)
         {
             string filename = string.Format("{0}usuarios.csv", path);
-      
-            if (this.Users.Count() > 0) 
-            {
-                Console.WriteLine(string.Format("Exportando {} registros de alumnos a formato csv.", this.Users.Count()));
 
-                string header   = "username,password,Firstname,Lastname ,email,course1,group1,TYPE1";
+            if (this.Users.Count() > 0)
+            {
+                Console.WriteLine(string.Format("Exportando {0} registros de alumnos a formato csv.", this.Users.Count()));
+
+                string header = "username,password,Firstname,Lastname ,email,course1,group1,TYPE1";
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(filename))
                 {
                     file.WriteLine(header);
@@ -175,8 +184,10 @@ namespace univer.extractions
 
                 return;
             }
-
-            throw new Exception("No hay usuarios a exportar");
+            else 
+            {
+                throw new Exception("No hay usuarios a exportar");
+            }
         }
 
         public void toREST() 

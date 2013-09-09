@@ -8,11 +8,11 @@ namespace univer.extractions
 {
     public static class Querys
     {
-         public const string SALUD = "SALUD";
+         public const string SALUD   = "SALUD";
          public const string HIDALGO = "HIDALGO";
-         public const string RAYON = "RAYON";
-         public const string NEZA = "NEZA";
-         public const string IXTAPA = "IXTAPA";
+         public const string RAYON   = "RAYON";
+         public const string NEZA    = "NEZA";
+         public const string IXTAPA  = "IXTAPA";
 
         static public string salud() 
         {

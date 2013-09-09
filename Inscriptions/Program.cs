@@ -75,15 +75,13 @@ namespace Inscriptions
             try
             {
                 Extraction ex = new Extraction();
-                ex.getUsers(Querys.HIDALGO).toCSV("c:\\");
+                ex.getUsers(Querys.SALUD).toCSV("C:\\Users\\ELEARNING\\Desktop\\extracciones\\");
             }
             catch (Exception oe) 
             {
                 Console.WriteLine(oe.Message.ToString());
                 Console.ReadLine();
             }
-
-            
         }
     }
 }

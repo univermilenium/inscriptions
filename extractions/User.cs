@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.Globalization;
 using univer.moodle;
 
 namespace univer.extractions
@@ -21,20 +23,41 @@ namespace univer.extractions
         public bool isValid() 
         {
             try 
-            {
-                this.IsValidEmail();
+            {   
                 this.IsValidCourse();
                 this.IsValidGroup();
                 this.IsValidType();
                 this.IsValidUsername();
                 this.IsValidFullName();
-
+                this.IsValidEmail();
                 return true;
             }
             catch (Exception oe)
             {
                 throw new Exception(string.Format("Registro no válido. {0}", oe.Message.ToString()));
             }
+        }
+
+        public string RemoveSpecialCharacters(string str)
+        {
+            return Regex.Replace(str, "[^a-zA-Z0-9_.]+", " ", RegexOptions.Compiled);
+        }
+
+        public string RemoveDiacritics(string text)
+        {
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var c in normalizedString)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
 
         public string toString() 
@@ -53,6 +76,9 @@ namespace univer.extractions
             {
                 throw new Exception("El apellido está vacio");
             }
+
+            this.firstname = this.RemoveDiacritics(this.firstname);
+            this.lastname = this.RemoveDiacritics(this.lastname);
         }
 
         private void IsValidCourse() 
@@ -101,7 +127,9 @@ namespace univer.extractions
             }
             catch
             {
-                throw new Exception(string.Format("Email no válido: {0}", this.email));
+                this.email = string.Format("{0}@tmp.univermilenium.edu.mx", this.username);
+                return true;
+                //throw new Exception(string.Format("Email no válido: {0}", this.email));
             }
         }        
     }
