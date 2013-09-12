@@ -74,6 +74,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Querys.cs" />
+    <Compile Include="QuerysTeachers.cs" />
     <Compile Include="Tracking.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
