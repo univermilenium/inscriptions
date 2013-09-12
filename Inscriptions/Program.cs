@@ -84,7 +84,7 @@ namespace Inscriptions
                 ex.trackConnection = Inscriptions.Properties.Settings.Default.TrackingConnection;
 
                 //all the magic is inside!
-                ex.getUsers(plantel, conn).toCSV(path);
+                ex.getUsers(plantel, conn).toCSV(path, "usuarios");
 
                 Console.ReadLine();
 

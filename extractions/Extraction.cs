@@ -66,6 +66,101 @@ namespace univer.extractions
             return query;
         }
 
+        private string getTeacherQuery(string plantel)
+        {
+            string query = string.Empty;
+
+            if (plantel == Querys.SALUD)
+            {
+                query = QuerysTeachers.salud();
+                this.plantel = Querys.SALUD.ToLower();
+            }
+
+            if (plantel == Querys.IXTAPA)
+            {
+                query = QuerysTeachers.ixtapaluca();
+                this.plantel = Querys.IXTAPA.ToLower();
+            }
+
+            if (plantel == Querys.NEZA)
+            {
+                query = QuerysTeachers.neza();
+                this.plantel = Querys.NEZA.ToLower();
+            }
+
+            if (plantel == Querys.RAYON)
+            {
+                query = QuerysTeachers.rayon();
+                this.plantel = Querys.RAYON.ToLower();
+            }
+
+            if (plantel == Querys.HIDALGO)
+            {
+                query = QuerysTeachers.hidalgo();
+                this.plantel = Querys.HIDALGO.ToLower();
+            }
+
+            if (plantel.Equals(string.Empty)) { throw new Exception(string.Format("No existe el plantel: " + plantel)); }
+
+            return query;
+        }
+        
+        public Extraction getTeachers(string plantel, string connectionstring) 
+        {
+            List<object[]> usersq = this.QueryFb(connectionstring, this.getTeacherQuery(plantel));
+
+            if (usersq.Count > 0)
+            {
+                Console.WriteLine(string.Format("{0} profesores a subir...", usersq.Count));
+                string planteldeco = this.plantel[0].ToString().ToUpper() + this.plantel.Substring(1);
+
+                int cont = 0;
+                foreach (object user in usersq)
+                {
+                    User MyUser = new User();
+
+                    MyUser.username = usersq[cont][0].ToString();
+                    MyUser.password = usersq[cont][0].ToString();
+                    MyUser.firstname = usersq[cont][1].ToString();
+                    MyUser.lastname = string.Format("{0} {1}", usersq[cont][2].ToString(), usersq[cont][3].ToString());
+                    MyUser.email = usersq[cont][4].ToString().ToLower();
+                    MyUser.course1 = usersq[cont][6].ToString();
+                    MyUser.group1 = string.Format("{0}-{1}", usersq[cont][5].ToString(), planteldeco);
+
+
+                    try
+                    {
+                        MyUser.type1 = int.Parse(usersq[cont][5].ToString());
+                    }
+                    catch
+                    {
+                        MyUser.type1 = 1;
+                    }
+
+                    try
+                    {
+                        bool isvalid = MyUser.isValid();
+                        if (isvalid)
+                        {
+                            this.Users.Add(MyUser);
+                            Console.WriteLine(string.Format("Se agrega {0} al envio...", MyUser.username));
+                        }
+                    }
+                    catch (Exception oe)
+                    {
+                        this.Errors.Add(oe.Message.ToString());
+                        Console.WriteLine(oe.Message.ToString());
+                    }
+
+                    cont++;
+                }
+            }
+
+            return this;
+
+        
+        }
+
         public Extraction getUsers(string plantel, string connectionstring) 
         {
             List<object[]> usersq = this.QueryFb(connectionstring, this.getQuery(plantel));
@@ -154,10 +249,10 @@ namespace univer.extractions
            
         }
         
-        public void toCSV(string path)
+        public void toCSV(string path, string fileprefix)
         {
-            string filename = string.Format("{0}usuarios_{1}_{2}.csv", path, this.plantel, DateTime.Now.ToString("MM-dd-yyyy-hhmmss"));
-            
+            string filename = string.Format("{0}{3}_{1}_{2}.csv", path, this.plantel, DateTime.Now.ToString("MM-dd-yyyy-hhmmss"), fileprefix);
+   
             if (this.Users.Count() > 0)
             {
                 Console.WriteLine(string.Format("Exportando {0} registros de alumnos a formato csv.", this.Users.Count()));

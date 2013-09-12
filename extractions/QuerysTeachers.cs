@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace extractions
+namespace univer.extractions
 {
     public static class QuerysTeachers
     {
