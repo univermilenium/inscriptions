@@ -11,63 +11,109 @@ namespace univer.extractions
         static public string salud()
         {
             return @"
-                    SELECT
-                      a.claveprofesor, a.nombreprofesor, a.email, b.codigogrupo, b.claveasignatura
-                    FROM
-                      profesores a, profesores_grupos b
-                    WHERE
-                      a.claveprofesor = b.claveprofesor AND
-                      (b.claveasignatura = 'MPS0101') AND
-                      b.id_escuela = 5
+                         SELECT 
+                          B.CLAVEPROFESOR, B.NOMBREPROFESOR, B.EMAIL, A.CODIGOGRUPO, A.CLAVEASIGNATURA
+                        FROM
+                          HORARIOS_DET A,
+                          PROFESORES B
+                        WHERE
+                          A.CLAVEPROFESOR = B.CLAVEPROFESOR   AND
+                          A.INICIAL = 2013                    AND
+                          A.FINAL   = 2013					  AND
+                          A.PERIODO = 1						  AND
+                          A.ID_ESCUELA = 5                    AND
+                          A.CLAVEASIGNATURA = 'MPS0101'       AND
+                          A.CODIGOGRUPO  LIKE 'S%'            AND
+                          A.CLAVEPROFESOR <> ''
+
+                          GROUP BY
+                           B.CLAVEPROFESOR, B.NOMBREPROFESOR, B.EMAIL, A.CODIGOGRUPO, A.CLAVEASIGNATURA
                     ";
         }
 
         static public string rayon() 
         {
-            return @"SELECT
-                      a.claveprofesor, a.nombreprofesor, a.email, b.codigogrupo, b.claveasignatura
+            return @"  
+                    SELECT 
+                      B.CLAVEPROFESOR, B.NOMBREPROFESOR, B.EMAIL, A.CODIGOGRUPO, A.CLAVEASIGNATURA
                     FROM
-                      profesores a, profesores_grupos b
+                      HORARIOS_DET A,
+                      PROFESORES B
                     WHERE
-                      a.claveprofesor = b.claveprofesor AND
-                      (b.claveasignatura = 'MDER0101' OR b.claveasignatura = 'CRIM0103') AND
-                      b.id_escuela = 1";
+                      A.CLAVEPROFESOR = B.CLAVEPROFESOR   AND
+                      A.INICIAL = 2013                    AND
+                      A.FINAL   = 2013					  AND
+                      A.PERIODO = 1						  AND
+                      A.ID_ESCUELA = 1                    AND
+                      (A.CLAVEASIGNATURA = 'MDER0101'       OR A.CLAVEASIGNATURA = 'CRIM0103') AND
+                      A.CODIGOGRUPO  LIKE 'S%'            AND
+                      A.CLAVEPROFESOR <> ''
+
+                      GROUP BY
+                       B.CLAVEPROFESOR, B.NOMBREPROFESOR, B.EMAIL, A.CODIGOGRUPO, A.CLAVEASIGNATURA";
         }
 
         static public string neza() 
         {
-            return @"SELECT
-                      a.claveprofesor, a.nombreprofesor, a.email, b.codigogrupo, b.claveasignatura
+            return @"SELECT 
+                      B.CLAVEPROFESOR, B.NOMBREPROFESOR, B.EMAIL, A.CODIGOGRUPO, A.CLAVEASIGNATURA
                     FROM
-                      profesores a, profesores_grupos b
+                      HORARIOS_DET A,
+                      PROFESORES B
                     WHERE
-                      a.claveprofesor = b.claveprofesor AND
-                      (b.claveasignatura = 'MPS0101' OR b.claveasignatura = 'MPEG0103'  OR b.claveasignatura = 'MPEG0418' OR b.claveasignatura = 'MDER0101' OR b.claveasignatura = 'CRIM0103' ) AND
-                      b.id_escuela = 2";
+                      A.CLAVEPROFESOR = B.CLAVEPROFESOR   AND
+                      A.INICIAL = 2013                    AND
+                      A.FINAL   = 2013					  AND
+                      A.PERIODO = 1						  AND
+                      A.ID_ESCUELA = 2                    AND
+                      (A.CLAVEASIGNATURA = 'MPS0101'       OR A.CLAVEASIGNATURA = 'MPEG0103' OR A.CLAVEASIGNATURA = 'MPEG0418' OR A.CLAVEASIGNATURA = 'MDER0101' OR A.CLAVEASIGNATURA = 'CRIM0103') AND
+                      A.CODIGOGRUPO  LIKE 'S%'            AND
+                      A.CLAVEPROFESOR <> ''
+
+                      GROUP BY
+                       B.CLAVEPROFESOR, B.NOMBREPROFESOR, B.EMAIL, A.CODIGOGRUPO, A.CLAVEASIGNATURA";
         }
 
         static public string ixtapaluca() 
         {
-            return @"SELECT
-                      a.claveprofesor, a.nombreprofesor, a.email, b.codigogrupo, b.claveasignatura
+            return @"SELECT 
+                      B.CLAVEPROFESOR, B.NOMBREPROFESOR, B.EMAIL, A.CODIGOGRUPO, A.CLAVEASIGNATURA
                     FROM
-                      profesores a, profesores_grupos b
+                      HORARIOS_DET A,
+                      PROFESORES B
                     WHERE
-                      a.claveprofesor = b.claveprofesor AND
-                      (b.claveasignatura = 'MPS0101' OR b.claveasignatura = 'MPEG0103'  OR b.claveasignatura = 'MPEG0418' OR b.claveasignatura = 'MDER0101' OR b.claveasignatura = 'CRIM0103' ) AND
-                      b.id_escuela = 3";
+                      A.CLAVEPROFESOR = B.CLAVEPROFESOR   AND
+                      A.INICIAL = 2013                    AND
+                      A.FINAL   = 2013					  AND
+                      A.PERIODO = 1						  AND
+                      A.ID_ESCUELA = 3                    AND
+                      (A.CLAVEASIGNATURA = 'MPS0101'       OR A.CLAVEASIGNATURA = 'MPEG0103' OR A.CLAVEASIGNATURA = 'MPEG0418' OR A.CLAVEASIGNATURA = 'MDER0101' OR A.CLAVEASIGNATURA = 'CRIM0103') AND
+                      A.CODIGOGRUPO  LIKE 'S%'            AND
+                      A.CLAVEPROFESOR <> ''
+
+                      GROUP BY
+                       B.CLAVEPROFESOR, B.NOMBREPROFESOR, B.EMAIL, A.CODIGOGRUPO, A.CLAVEASIGNATURA";
         }
 
         static public string hidalgo() 
         {
-            return @"SELECT
-                      a.claveprofesor, a.nombreprofesor, a.email, b.codigogrupo, b.claveasignatura
+            return @"SELECT 
+                      B.CLAVEPROFESOR, B.NOMBREPROFESOR, B.EMAIL, A.CODIGOGRUPO, A.CLAVEASIGNATURA
                     FROM
-                      profesores a, profesores_grupos b
+                      HORARIOS_DET A,
+                      PROFESORES B
                     WHERE
-                      a.claveprofesor = b.claveprofesor AND
-                      (b.claveasignatura = 'MPEG-103' OR b.claveasignatura = 'MPEG-418') AND
-                      b.id_escuela = 4";
+                      A.CLAVEPROFESOR = B.CLAVEPROFESOR   AND
+                      A.INICIAL = 2013                    AND
+                      A.FINAL   = 2013					  AND
+                      A.PERIODO = 1						  AND
+                      A.ID_ESCUELA = 4                    AND
+                      (A.CLAVEASIGNATURA = 'MPEG-103'       OR A.CLAVEASIGNATURA = 'MPEG-418') AND
+                      A.CODIGOGRUPO  LIKE 'S%'            AND
+                      A.CLAVEPROFESOR <> ''
+
+                      GROUP BY
+                       B.CLAVEPROFESOR, B.NOMBREPROFESOR, B.EMAIL, A.CODIGOGRUPO, A.CLAVEASIGNATURA";
         }
 
     }
