@@ -14,13 +14,25 @@ namespace univer.extractions
         {
           using(OleDbConnection conn = new OleDbConnection(connectionstring))
           {
-              conn.Open();
 
-              using (var command = conn.CreateCommand())
+              using (var command = new OleDbCommand())
               {
-                  command.CommandText = string.Format("INSERT INTO TRACKING([username], firstname, lastname, email, course, group, type) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6})", user.username, user.firstname, user.lastname, user.email, user.course1, user.group1, user.type1);
+                  conn.Open();
+                  command.Connection = conn;
+                  command.CommandType = System.Data.CommandType.Text;
+                  command.CommandText = "INSERT INTO TRACKING ([username], [firstname], [lastname], [email], [course], [group], [type]) VALUES (?,?,?,?,?,?,?)";
+
+                  command.Parameters.Add("?", OleDbType.VarChar).Value = user.username;
+                  command.Parameters.Add("?", OleDbType.VarChar).Value = user.firstname;
+                  command.Parameters.Add("?", OleDbType.VarChar).Value = user.lastname;
+                  command.Parameters.Add("?", OleDbType.VarChar).Value = user.email;
+                  command.Parameters.Add("?", OleDbType.VarChar).Value = user.course1;
+                  command.Parameters.Add("?", OleDbType.VarChar).Value = user.group1;
+                  command.Parameters.Add("?", OleDbType.Integer).Value = 1;
+
                   command.ExecuteNonQuery();
               }
+
           }   
         }
 
