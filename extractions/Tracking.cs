@@ -28,12 +28,16 @@ namespace univer.extractions
                     command.Parameters.Add("?", OleDbType.VarChar).Value = user.course1;
 
                     OleDbDataReader reader = command.ExecuteReader();
-                    
 
                     val = reader.HasRows;
 
-                    Console.WriteLine(reader.HasRows);
+                    
                 }
+            }
+
+            if (val) 
+            {
+                Console.WriteLine(string.Format("El usuario {0} ya está inscrito en el curso {1}.", user.username, user.course1));
             }
 
             return val;
