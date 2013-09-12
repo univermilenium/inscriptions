@@ -24,12 +24,23 @@ namespace Inscriptions
                 string plantel     = Inscriptions.Properties.Settings.Default.plantel;
                 string conn        = Inscriptions.Properties.Settings.Default.FbConnectionstring;
                 string path        = Inscriptions.Properties.Settings.Default.outputpath;
+                string type        = Inscriptions.Properties.Settings.Default.usertype;
+
                 ex.trackConnection = Inscriptions.Properties.Settings.Default.TrackingConnection;
 
                 //all the magic is inside!
-                string file = ex.getUsers(plantel, conn).toCSV(path, "usuarios");
-
-                Console.ReadLine();
+                string file = string.Empty;
+                switch(type)
+                {
+                    case "usuarios":
+                        file = ex.getUsers(plantel, conn).toCSV(path, type);
+                        break;
+                    case "profesores":
+                        file = ex.getTeachers(plantel, conn).toCSV(path, type);
+                        break;
+                    default:
+                        throw new Exception("No existe el tipo: " + type.ToString());
+                }
 
                 if (ex.Errors.Count > 0) 
                 {

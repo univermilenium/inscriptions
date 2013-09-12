@@ -84,5 +84,17 @@ namespace Inscriptions.Properties {
                 this["TrackingConnection"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("usuarios")]
+        public string usertype {
+            get {
+                return ((string)(this["usertype"]));
+            }
+            set {
+                this["usertype"] = value;
+            }
+        }
     }
 }

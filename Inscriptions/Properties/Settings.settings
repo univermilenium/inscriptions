@@ -17,5 +17,8 @@
     <Setting Name="TrackingConnection" Type="System.String" Scope="User">
       <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\ELEARNING\\Desktop\\extracciones\\tracking.accdb</Value>
     </Setting>
+    <Setting Name="usertype" Type="System.String" Scope="User">
+      <Value Profile="(Default)">usuarios</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
