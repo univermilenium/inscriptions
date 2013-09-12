@@ -162,7 +162,7 @@ namespace univer.extractions
             {
                 Console.WriteLine(string.Format("Exportando {0} registros de alumnos a formato csv.", this.Users.Count()));
 
-                string header = "username,password,Firstname,Lastname ,email,course1,group1,TYPE1";
+                string header = "username,password,firstname,lastname,email,course1,group1,TYPE1";
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(filename))
                 {
                     file.WriteLine(header);
