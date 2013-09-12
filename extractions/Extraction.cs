@@ -249,7 +249,7 @@ namespace univer.extractions
            
         }
         
-        public void toCSV(string path, string fileprefix)
+        public string toCSV(string path, string fileprefix)
         {
             string filename = string.Format("{0}{3}_{1}_{2}.csv", path, this.plantel, DateTime.Now.ToString("MM-dd-yyyy-hhmmss"), fileprefix);
    
@@ -285,7 +285,7 @@ namespace univer.extractions
 
                 Console.WriteLine(string.Format("El archivo \"{0}\" se generó con éxito.", filename));
 
-                return;
+                return filename;
             }
             else 
             {
