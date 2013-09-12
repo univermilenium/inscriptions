@@ -8,16 +8,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Inscriptions {
+namespace extractions.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
-    public sealed partial class univer : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static univer defaultInstance = ((univer)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new univer())));
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
-        public static univer Default {
+        public static Settings Default {
             get {
                 return defaultInstance;
             }
@@ -25,10 +25,11 @@ namespace Inscriptions {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("a470930b7e19172703769387b93c761e")]
-        public string token {
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\Database1.sdf")]
+        public string Database1ConnectionString {
             get {
-                return ((string)(this["token"]));
+                return ((string)(this["Database1ConnectionString"]));
             }
         }
     }

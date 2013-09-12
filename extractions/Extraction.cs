@@ -19,6 +19,7 @@ namespace univer.extractions
         public List<User> Users;
         public List<string> Errors;
         public string plantel;
+        public string trackConnection;
         
         public Extraction()  
         {
@@ -65,15 +66,15 @@ namespace univer.extractions
             return query;
         }
 
-        public Extraction getUsers(string plantel) 
+        public Extraction getUsers(string plantel, string connectionstring) 
         {
-            string connectionstring = "ServerType=0;User=SYSDBA;Password=masterkey;Size=4096;Dialect=3;Pooling=FALSE;database=localhost:c:\\escolar\\DATOS.GDB";
             List<object[]> usersq = this.QueryFb(connectionstring, this.getQuery(plantel));
             
             if (usersq.Count > 0) 
             {
                 Console.WriteLine(string.Format("{0} usuarios a subir...", usersq.Count));
-                
+                string planteldeco = this.plantel[0].ToString().ToUpper() + this.plantel.Substring(1);
+
                 int cont = 0;
                 foreach (object user in usersq) 
                 {
@@ -84,9 +85,9 @@ namespace univer.extractions
                     MyUser.firstname  = usersq[cont][1].ToString();
                     MyUser.lastname   = string.Format("{0} {1}", usersq[cont][2].ToString(), usersq[cont][3].ToString());
                     MyUser.email      = usersq[cont][4].ToString().ToLower();
-                    MyUser.course1    = usersq[cont][6].ToString();
-                    MyUser.group1     = string.Format("{0}-{1}", usersq[cont][5].ToString(), this.plantel); 
-                   
+                    MyUser.course1    = usersq[cont][6].ToString(); 
+                    MyUser.group1 = string.Format("{0}-{1}", usersq[cont][5].ToString(), planteldeco);
+
 
                     try
                     {
@@ -155,8 +156,8 @@ namespace univer.extractions
         
         public void toCSV(string path)
         {
-            string filename = string.Format("{0}usuarios.csv", path);
-
+            string filename = string.Format("{0}usuarios_{1}_{2}.csv", path, this.plantel, DateTime.Now.ToString("MM-dd-yyyy-hhmmss"));
+            
             if (this.Users.Count() > 0)
             {
                 Console.WriteLine(string.Format("Exportando {0} registros de alumnos a formato csv.", this.Users.Count()));
@@ -173,6 +174,7 @@ namespace univer.extractions
                             {
                                 string row = string.Format("{0},{1},{2},{3},{4},{5},{6},{7}", user.username, user.username, user.firstname, user.lastname, user.email, user.course1, user.group1, user.type1);
                                 file.WriteLine(row);
+                                Tracking.trackuser(user, this.trackConnection);
                             }
                         }
                         catch (Exception oe)
@@ -181,6 +183,8 @@ namespace univer.extractions
                         }
                     }
                 }
+
+                Console.WriteLine(string.Format("El archivo \"{0}\" se generó con éxito.", filename));
 
                 return;
             }

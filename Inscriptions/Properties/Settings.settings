@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Inscriptions.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="plantel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SALUD</Value>
+    </Setting>
+    <Setting Name="token" Type="System.String" Scope="User">
+      <Value Profile="(Default)">a470930b7e19172703769387b93c761e</Value>
+    </Setting>
+    <Setting Name="outputpath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\Users\\ELEARNING\\Desktop\\extracciones\\</Value>
+    </Setting>
+    <Setting Name="FbConnectionstring" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ServerType=0;User=SYSDBA;Password=masterkey;Size=4096;Dialect=3;Pooling=FALSE;database=localhost:c:\\escolar\\DATOS.GDB</Value>
+    </Setting>
+    <Setting Name="TrackingConnection" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\ELEARNING\\Desktop\\extracciones\\tracking.accdb</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

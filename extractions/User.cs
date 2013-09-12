@@ -129,7 +129,6 @@ namespace univer.extractions
             {
                 this.email = string.Format("{0}@tmp.univermilenium.edu.mx", this.username);
                 return true;
-                //throw new Exception(string.Format("Email no válido: {0}", this.email));
             }
         }        
     }
