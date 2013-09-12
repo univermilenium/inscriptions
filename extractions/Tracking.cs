@@ -10,6 +10,35 @@ namespace univer.extractions
     public class Tracking
     {
 
+
+        static public bool uniqueinscription(User user, string connectionstring) 
+        {
+            bool val = false;
+            
+            using (OleDbConnection conn = new OleDbConnection(connectionstring))
+            {
+                using (var command = new OleDbCommand())
+                {
+                    conn.Open();
+                    command.Connection = conn;
+                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandText = "SELECT [username] FROM TRACKING WHERE [username] = ? AND [course] = ?";
+
+                    command.Parameters.Add("?", OleDbType.VarChar).Value = user.username;
+                    command.Parameters.Add("?", OleDbType.VarChar).Value = user.course1;
+
+                    OleDbDataReader reader = command.ExecuteReader();
+                    
+
+                    val = reader.HasRows;
+
+                    Console.WriteLine(reader.HasRows);
+                }
+            }
+
+            return val;
+        }
+
         static public void trackuser(User user, string connectionstring) 
         {
           using(OleDbConnection conn = new OleDbConnection(connectionstring))

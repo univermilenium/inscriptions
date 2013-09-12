@@ -172,9 +172,13 @@ namespace univer.extractions
                         {
                             if (user.isValid())
                             {
-                                string row = string.Format("{0},{1},{2},{3},{4},{5},{6},{7}", user.username, user.username, user.firstname, user.lastname, user.email, user.course1, user.group1, user.type1);
-                                file.WriteLine(row);
-                                Tracking.trackuser(user, this.trackConnection);
+
+                                if (!Tracking.uniqueinscription(user, this.trackConnection)) 
+                                {
+                                    string row = string.Format("{0},{1},{2},{3},{4},{5},{6},{7}", user.username, user.username, user.firstname, user.lastname, user.email, user.course1, user.group1, user.type1);
+                                    file.WriteLine(row);
+                                    Tracking.trackuser(user, this.trackConnection);                                
+                                }
                             }
                         }
                         catch (Exception oe)

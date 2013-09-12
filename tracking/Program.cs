@@ -10,6 +10,13 @@ namespace tracking
 {
     class Program
     {
+
+
+        void checkinscription() 
+        {
+        
+        }
+
         static void Main(string[] args)
         {
             string connectionstring = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\E-LEARNING5\\Documents\\tracking.accdb";
