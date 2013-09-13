@@ -14,42 +14,42 @@ namespace Inscriptions
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Presione Enter para iniciar la extracción de alumnos...");
-            Console.WriteLine("Plantel: " + Inscriptions.Properties.Settings.Default.plantel);
-            Console.ReadLine();
 
             try
             {
-                Extraction ex      = new Extraction();
+                
                 string plantel     = Inscriptions.Properties.Settings.Default.plantel;
                 string conn        = Inscriptions.Properties.Settings.Default.FbConnectionstring;
                 string path        = Inscriptions.Properties.Settings.Default.outputpath;
                 string type        = Inscriptions.Properties.Settings.Default.usertype;
+                string track       = Inscriptions.Properties.Settings.Default.TrackingConnection;
 
-                ex.trackConnection = Inscriptions.Properties.Settings.Default.TrackingConnection;
+                Extraction ex = new Extraction(type, track);
+
+                Console.WriteLine("Presione Enter para iniciar la extracción de " + type);
+                Console.WriteLine("Plantel: " + plantel);
+                Console.ReadLine();
 
                 //all the magic is inside!
                 string file = string.Empty;
                 switch(type)
                 {
                     case "usuarios":
-                        file = ex.getUsers(plantel, conn).toCSV(path, type);
+                        file = ex.getUsers(plantel, conn).toCSV(path);
                         break;
                     case "profesores":
-                        file = ex.getTeachers(plantel, conn).toCSV(path, type);
+                        file = ex.getTeachers(plantel, conn).toCSV(path);
                         break;
                     default:
                         throw new Exception("No existe el tipo: " + type.ToString());
                 }
 
+                Console.WriteLine(string.Format("Hay {0} errores. Presione Enter para continuar.", ex.Errors.Count));
+                Console.ReadLine();
+
                 if (ex.Errors.Count > 0) 
                 {
-
                     string filepath = string.Format("{0}error_{1}.log", path, DateTime.Now.ToString("MM-dd-yyyy-hhmmss"));
-                    
-                    Console.WriteLine(string.Format("Hay {0} errores. Presione Enter para visualizarlos.", ex.Errors.Count));
-                    Console.ReadLine();
-
                     using (System.IO.StreamWriter filelog = new System.IO.StreamWriter(filepath))
                     {
                         filelog.WriteLine(string.Format("Error.log para el archivo {0}:", file));

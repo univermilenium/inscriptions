@@ -11,7 +11,7 @@ namespace univer.extractions
     {
 
 
-        static public bool uniqueinscription(User user, string connectionstring) 
+        static public bool uniqueinscription(User user, string connectionstring, string type) 
         {
             bool val = false;
             
@@ -22,16 +22,24 @@ namespace univer.extractions
                     conn.Open();
                     command.Connection = conn;
                     command.CommandType = System.Data.CommandType.Text;
-                    command.CommandText = "SELECT [username] FROM TRACKING WHERE [username] = ? AND [course] = ?";
 
+                    string sqlcommand = "SELECT [username] FROM TRACKING WHERE [username] = ? AND [course] = ?";
+                    if (type.Equals("profesores")) 
+                    {
+                        sqlcommand = "SELECT [username] FROM TRACKING WHERE [username] = ? AND [course] = ? AND [group] = ?";
+                    }
+
+                    command.CommandText = sqlcommand;
                     command.Parameters.Add("?", OleDbType.VarChar).Value = user.username;
                     command.Parameters.Add("?", OleDbType.VarChar).Value = user.course1;
 
+                    if (type.Equals("profesores"))
+                    {
+                        command.Parameters.Add("?", OleDbType.VarChar).Value = user.group1;
+                    }
+
                     OleDbDataReader reader = command.ExecuteReader();
-
                     val = reader.HasRows;
-
-                    
                 }
             }
 
@@ -43,7 +51,7 @@ namespace univer.extractions
             return val;
         }
 
-        static public void trackuser(User user, string connectionstring) 
+        static public void trackuser(User user, string connectionstring, string type) 
         {
           using(OleDbConnection conn = new OleDbConnection(connectionstring))
           {
@@ -61,7 +69,7 @@ namespace univer.extractions
                   command.Parameters.Add("?", OleDbType.VarChar).Value = user.email;
                   command.Parameters.Add("?", OleDbType.VarChar).Value = user.course1;
                   command.Parameters.Add("?", OleDbType.VarChar).Value = user.group1;
-                  command.Parameters.Add("?", OleDbType.Integer).Value = 1;
+                  command.Parameters.Add("?", OleDbType.Integer).Value = (type.Equals("profesores")) ? 3 : 1;
 
                   command.ExecuteNonQuery();
               }

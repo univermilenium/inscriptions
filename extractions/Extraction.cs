@@ -20,11 +20,21 @@ namespace univer.extractions
         public List<string> Errors;
         public string plantel;
         public string trackConnection;
+        public string type = string.Empty;
         
-        public Extraction()  
+        public Extraction(string type)  
         {
             this.Users = new List<User>();
             this.Errors = new List<string>();
+            this.type = type;
+        }
+
+        public Extraction(string type, string trackConnection)
+        {
+            this.Users = new List<User>();
+            this.Errors = new List<string>();
+            this.type = type;
+            this.trackConnection = trackConnection;
         }
 
         private string getQuery(string plantel) 
@@ -118,23 +128,22 @@ namespace univer.extractions
                 foreach (object user in usersq)
                 {
                     User MyUser = new User();
-
-                    MyUser.username = usersq[cont][0].ToString();
-                    MyUser.password = usersq[cont][0].ToString();
-                    MyUser.firstname = usersq[cont][1].ToString();
-                    MyUser.lastname = string.Format("{0} {1}", usersq[cont][2].ToString(), usersq[cont][3].ToString());
-                    MyUser.email = usersq[cont][4].ToString().ToLower();
-                    MyUser.course1 = usersq[cont][6].ToString();
-                    MyUser.group1 = string.Format("{0}-{1}", usersq[cont][5].ToString(), planteldeco);
-
-
                     try
-                    {
-                        MyUser.type1 = int.Parse(usersq[cont][5].ToString());
+                    {   
+                        MyUser.username = usersq[cont][0].ToString();
+                        MyUser.password = usersq[cont][0].ToString();
+                        MyUser.firstname = "Profesor";
+                        MyUser.lastname = usersq[cont][1].ToString();
+                        MyUser.email = usersq[cont][2].ToString().ToLower();
+                        MyUser.course1 = usersq[cont][4].ToString();
+                        MyUser.group1 = string.Format("{0}-{1}", usersq[cont][3].ToString(), planteldeco);
+                        MyUser.type1 = 3;
+
                     }
-                    catch
+                    catch (Exception oe) 
                     {
-                        MyUser.type1 = 1;
+                        Console.WriteLine(oe.ToString());
+                        this.Errors.Add(oe.Message.ToString());
                     }
 
                     try
@@ -181,17 +190,8 @@ namespace univer.extractions
                     MyUser.lastname   = string.Format("{0} {1}", usersq[cont][2].ToString(), usersq[cont][3].ToString());
                     MyUser.email      = usersq[cont][4].ToString().ToLower();
                     MyUser.course1    = usersq[cont][6].ToString(); 
-                    MyUser.group1 = string.Format("{0}-{1}", usersq[cont][5].ToString(), planteldeco);
-
-
-                    try
-                    {
-                        MyUser.type1 = int.Parse(usersq[cont][5].ToString());
-                    }
-                    catch 
-                    {
-                        MyUser.type1 = 1;
-                    }
+                    MyUser.group1     = string.Format("{0}-{1}", usersq[cont][5].ToString(), planteldeco);
+                    MyUser.type1 = 1;
 
                     try
                     {
@@ -249,9 +249,9 @@ namespace univer.extractions
            
         }
         
-        public string toCSV(string path, string fileprefix)
+        public string toCSV(string path)
         {
-            string filename = string.Format("{0}{3}_{1}_{2}.csv", path, this.plantel, DateTime.Now.ToString("MM-dd-yyyy-hhmmss"), fileprefix);
+            string filename = string.Format("{0}{3}_{1}_{2}.csv", path, this.plantel, DateTime.Now.ToString("MM-dd-yyyy-hhmmss"), this.type);
    
             if (this.Users.Count() > 0)
             {
@@ -268,11 +268,11 @@ namespace univer.extractions
                             if (user.isValid())
                             {
 
-                                if (!Tracking.uniqueinscription(user, this.trackConnection)) 
+                                if (!Tracking.uniqueinscription(user, this.trackConnection, this.type)) 
                                 {
                                     string row = string.Format("{0},{1},{2},{3},{4},{5},{6},{7}", user.username, user.username, user.firstname, user.lastname, user.email, user.course1, user.group1, user.type1);
                                     file.WriteLine(row);
-                                    Tracking.trackuser(user, this.trackConnection);                                
+                                    Tracking.trackuser(user, this.trackConnection, this.type);                                
                                 }
                             }
                         }

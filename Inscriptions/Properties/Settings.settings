@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="plantel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">SALUD</Value>
+      <Value Profile="(Default)">HIDALGO</Value>
     </Setting>
     <Setting Name="token" Type="System.String" Scope="User">
       <Value Profile="(Default)">a470930b7e19172703769387b93c761e</Value>
@@ -18,7 +18,7 @@
       <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\ELEARNING\\Desktop\\extracciones\\tracking.accdb</Value>
     </Setting>
     <Setting Name="usertype" Type="System.String" Scope="User">
-      <Value Profile="(Default)">usuarios</Value>
+      <Value Profile="(Default)">profesores</Value>
     </Setting>
   </Settings>
 </SettingsFile>
