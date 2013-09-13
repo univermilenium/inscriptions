@@ -72,12 +72,12 @@ namespace univer.extractions
 	                    G.CODIGOGRUPO     = GR.CODIGOGRUPO AND
                             (GR.GRADO = 1 OR GR.GRADO = 4  )   AND
 	                    G.CODIGOGRUPO LIKE 'S%'            AND 
-	                    (K.CLAVEASIGNATURA = 'MPS0101' OR K.CLAVEASIGNATURA = 'MPEG0103' OR K.CLAVEASIGNATURA = 'MPEG0418' OR K.CLAVEASIGNATURA = 'MDER0101' OR K.CLAVEASIGNATURA = 'CRIM0103')      AND
+	                    (K.CLAVEASIGNATURA = 'MDER0101' OR K.CLAVEASIGNATURA = 'CRIM0103')      AND
 	                    K.ID_EVAL         = 'A'            AND
 	                    K.CALIFICACION_1  = 0              AND
-	                    A.STATUS = 'A'                     AND
-	                    A.ID_ESCUELA = 2 AND
-	                    (A.MATRICULA LIKE '280%' OR A.MATRICULA LIKE '284%' OR A.MATRICULA LIKE '281%' OR A.MATRICULA LIKE '282%')
+	                    A.STATUS          = 'A'            AND
+	                    A.ID_ESCUELA      = 1              AND
+	                    (A.MATRICULA LIKE '180%' OR A.MATRICULA LIKE '184%' OR A.MATRICULA LIKE '181%' OR A.MATRICULA LIKE '182%')		
                     ";
         }
 
@@ -106,7 +106,7 @@ namespace univer.extractions
 	                    G.CODIGOGRUPO     = GR.CODIGOGRUPO AND
                             (GR.GRADO = 1 OR GR.GRADO = 4  )   AND
 	                    G.CODIGOGRUPO LIKE 'S%'            AND 
-	                    (K.CLAVEASIGNATURA = 'MPS0101' OR K.CLAVEASIGNATURA = 'MPEG0103' OR K.CLAVEASIGNATURA = 'MPEG0418' OR K.CLAVEASIGNATURA = 'MDER0101' OR K.CLAVEASIGNATURA = 'CRIM0103')      AND
+	                    (K.CLAVEASIGNATURA = 'MPS0101' OR K.CLAVEASIGNATURA = 'MPEG-0103' OR K.CLAVEASIGNATURA = 'MPEG-0418' OR K.CLAVEASIGNATURA = 'MDER101' OR K.CLAVEASIGNATURA = 'CRIM0103')      AND
 	                    K.ID_EVAL         = 'A'            AND
 	                    K.CALIFICACION_1  = 0              AND
 	                    A.STATUS = 'A'                     AND
