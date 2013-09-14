@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="plantel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">IXTAPA</Value>
+      <Value Profile="(Default)">RAYON</Value>
     </Setting>
     <Setting Name="token" Type="System.String" Scope="User">
       <Value Profile="(Default)">a470930b7e19172703769387b93c761e</Value>

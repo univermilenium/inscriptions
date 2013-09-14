@@ -25,7 +25,7 @@ namespace Inscriptions.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("IXTAPA")]
+        [global::System.Configuration.DefaultSettingValueAttribute("RAYON")]
         public string plantel {
             get {
                 return ((string)(this["plantel"]));

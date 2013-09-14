@@ -16,9 +16,51 @@ namespace univer.extractions
         public string firstname { get; set; }
         public string lastname  { get; set; }
         public string email     { get; set; }
-        public string course1   { get; set; }
+        private string _course1;
+        public string course1
+        {
+            get { return this._course1; }
+            set 
+            {                 
+                this._course1 = this.getValidCourse(value); 
+            }        
+        }
         public string group1    { get; set; }
         public int    type1     { get; set; }
+
+        private string getValidCourse(string course) 
+        {
+            string val = string.Empty;
+
+            switch (course) 
+            {
+                case "MPEG-103":
+                    val = "MPEG0103";
+                    break;
+
+                case "MPEG-418":
+                    val = "MPEG0418";
+                    break;
+
+                case "MPEG-0103":
+                    val = "MPEG0103";
+                    break;
+
+                case "MPEG-0418":
+                    val = "MPEG0418";
+                    break;
+
+                case "MDER101":
+                    val = "MDER0101";
+                    break;
+                default:
+                    val = course;
+                    break;
+            }
+
+            return val;
+
+        }
 
         public bool isValid() 
         {
