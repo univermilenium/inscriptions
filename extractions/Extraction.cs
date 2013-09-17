@@ -268,12 +268,12 @@ namespace univer.extractions
                             if (user.isValid())
                             {
 
-                                //if (!Tracking.uniqueinscription(user, this.trackConnection, this.type)) 
-                                //{
+                                if (!Tracking.uniqueinscription(user, this.trackConnection, this.type, "FIREBIRD")) 
+                                {
                                     string row = string.Format("{0},{1},{2},{3},{4},{5},{6},{7}", user.username, user.username, user.firstname, user.lastname, user.email, user.course1, user.group1, user.type1);
                                     file.WriteLine(row);
-                                   //Tracking.trackuser(user, this.trackConnection, this.type);                                
-                                //}
+                                   Tracking.trackuser(user, this.trackConnection, this.type, "FIREBIRD");                                
+                                }
                             }
                         }
                         catch (Exception oe)

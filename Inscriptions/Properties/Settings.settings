@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="plantel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">RAYON</Value>
+      <Value Profile="(Default)">IXTAPA</Value>
     </Setting>
     <Setting Name="token" Type="System.String" Scope="User">
       <Value Profile="(Default)">a470930b7e19172703769387b93c761e</Value>
@@ -15,7 +15,7 @@
       <Value Profile="(Default)">ServerType=0;User=SYSDBA;Password=masterkey;Size=4096;Dialect=3;Pooling=FALSE;database=localhost:c:\\escolar\\DATOS.GDB</Value>
     </Setting>
     <Setting Name="TrackingConnection" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\ELEARNING\\Desktop\\extracciones\\tracking.accdb</Value>
+      <Value Profile="(Default)">ServerType=0;User=SYSDBA;Password=masterkey;Size=4096;Dialect=3;Pooling=FALSE;database=localhost:C:\\Users\\ELEARNING\\Desktop\\extracciones\\TRACKING.GDB</Value>
     </Setting>
     <Setting Name="usertype" Type="System.String" Scope="User">
       <Value Profile="(Default)">profesores</Value>

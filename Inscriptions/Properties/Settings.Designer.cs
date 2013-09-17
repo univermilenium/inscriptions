@@ -25,7 +25,7 @@ namespace Inscriptions.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("RAYON")]
+        [global::System.Configuration.DefaultSettingValueAttribute("IXTAPA")]
         public string plantel {
             get {
                 return ((string)(this["plantel"]));
@@ -74,8 +74,8 @@ namespace Inscriptions.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\\\Users\\\\ELEARNING\\\\Desktop\\\\extr" +
-            "acciones\\\\tracking.accdb")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ServerType=0;User=SYSDBA;Password=masterkey;Size=4096;Dialect=3;Pooling=FALSE;dat" +
+            "abase=localhost:C:\\\\Users\\\\ELEARNING\\\\Desktop\\\\extracciones\\\\TRACKING.GDB")]
         public string TrackingConnection {
             get {
                 return ((string)(this["TrackingConnection"]));
