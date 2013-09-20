@@ -62,6 +62,12 @@ namespace univer.extractions
 
         }
 
+
+        public static int RoundOff(int i)
+        {
+            return ((int)Math.Round(i / 100.0)) * 100;
+        }
+
         public bool isValid() 
         {
             try 
@@ -123,12 +129,24 @@ namespace univer.extractions
             this.lastname = this.RemoveDiacritics(this.lastname);
         }
 
+        //Valida que el curso no esté vacio, además de la correspondencia del cuatrimestre según la nomenclatura del grupo con  la asignatura.
         private void IsValidCourse() 
         {
             if (this.course1.Equals(string.Empty))
             {
                 throw new Exception("El curso está vacio");
-            }        
+            }
+
+            string text_course = new String(this.course1.Where(Char.IsDigit).ToArray());
+            string text_group = new String(this.group1.Where(Char.IsDigit).ToArray());
+
+            int grade_course = User.RoundOff(int.Parse(text_course));
+            int grade_group = User.RoundOff(int.Parse(text_group));
+
+            if (grade_course != grade_group) 
+            {
+                throw new Exception(string.Format("El cuatrimestre del grupo {0} no corresponde al cuatrimestre de asignatura {1}. Matricula: {2}", this.group1, this.course1, this.username));
+            }
         }
 
         private void IsValidUsername() 

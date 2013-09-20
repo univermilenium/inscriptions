@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="plantel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">IXTAPA</Value>
+      <Value Profile="(Default)">NEZA</Value>
     </Setting>
     <Setting Name="token" Type="System.String" Scope="User">
       <Value Profile="(Default)">a470930b7e19172703769387b93c761e</Value>
@@ -18,7 +18,7 @@
       <Value Profile="(Default)">ServerType=0;User=SYSDBA;Password=masterkey;Size=4096;Dialect=3;Pooling=FALSE;database=localhost:C:\\Users\\ELEARNING\\Desktop\\extracciones\\TRACKING.GDB</Value>
     </Setting>
     <Setting Name="usertype" Type="System.String" Scope="User">
-      <Value Profile="(Default)">profesores</Value>
+      <Value Profile="(Default)">usuarios</Value>
     </Setting>
   </Settings>
 </SettingsFile>

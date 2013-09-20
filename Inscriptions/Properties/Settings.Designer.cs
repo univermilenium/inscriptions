@@ -25,7 +25,7 @@ namespace Inscriptions.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("IXTAPA")]
+        [global::System.Configuration.DefaultSettingValueAttribute("NEZA")]
         public string plantel {
             get {
                 return ((string)(this["plantel"]));
@@ -87,7 +87,7 @@ namespace Inscriptions.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("profesores")]
+        [global::System.Configuration.DefaultSettingValueAttribute("usuarios")]
         public string usertype {
             get {
                 return ((string)(this["usertype"]));
