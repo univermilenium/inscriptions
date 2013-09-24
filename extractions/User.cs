@@ -53,6 +53,11 @@ namespace univer.extractions
                 case "MDER101":
                     val = "MDER0101";
                     break;
+
+                case "CRIM130":
+                    val = "CRIM0103";
+                    break;
+
                 default:
                     val = course;
                     break;
@@ -187,7 +192,7 @@ namespace univer.extractions
             }
             catch
             {
-                this.email = string.Format("{0}@tmp.univermilenium.edu.mx", this.username);
+                this.email = string.Format("{0}@univermilenium.edu.mx", this.username);
                 return true;
             }
         }        

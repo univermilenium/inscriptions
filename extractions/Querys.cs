@@ -191,6 +191,7 @@ namespace univer.extractions
                          OR D.CLAVEASIGNATURA = 'MPEG0418'
                          OR D.CLAVEASIGNATURA = 'MDER0101'
                          OR D.CLAVEASIGNATURA = 'CRIM0103'
+                         OR D.CLAVEASIGNATURA = 'CRIM103'
                         )
   
                     ORDER BY b.CODIGOGRUPO	

@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using System.Data.Odbc;
 using System.Configuration;
-
 using univer.moodle;
-
 using FirebirdSql.Data.FirebirdClient;
 
 
@@ -22,6 +19,13 @@ namespace univer.extractions
         public string trackConnection;
         public string type = string.Empty;
         
+        /*id de plantel*/
+        static public int IXTAPA   = 3;
+        static public int SALUD    = 5;
+        static public int NEZA     = 2;
+        static public int HIDALGO  = 4;
+        static public int RAYON    = 1;
+
         public Extraction(string type)  
         {
             this.Users = new List<User>();
@@ -37,6 +41,11 @@ namespace univer.extractions
             this.trackConnection = trackConnection;
         }
 
+        private int getPlantelID() 
+        {
+            return (int)this.GetType().GetField(this.plantel).GetValue(this);
+        }
+        
         private string getQuery(string plantel) 
         {
             string query = string.Empty;
@@ -129,8 +138,8 @@ namespace univer.extractions
                 {
                     User MyUser = new User();
                     try
-                    {   
-                        MyUser.username = usersq[cont][0].ToString();
+                    {
+                        MyUser.username = string.Format("{0}{1}", this.getPlantelID(), usersq[cont][0].ToString());
                         MyUser.password = usersq[cont][0].ToString();
                         MyUser.firstname = "Profesor";
                         MyUser.lastname = usersq[cont][1].ToString();
