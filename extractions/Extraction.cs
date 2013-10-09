@@ -20,11 +20,11 @@ namespace univer.extractions
         public string type = string.Empty;
         
         /*id de plantel*/
-        static public int IXTAPA   = 3;
-        static public int SALUD    = 5;
-        static public int NEZA     = 2;
-        static public int HIDALGO  = 4;
-        static public int RAYON    = 1;
+        static public int ixtapa   = 3;
+        static public int salud    = 5;
+        static public int neza     = 2;
+        static public int hidalgo  = 4;
+        static public int rayon    = 1;
 
         public Extraction(string type)  
         {
@@ -139,9 +139,10 @@ namespace univer.extractions
                     User MyUser = new User();
                     try
                     {
-                        MyUser.username = string.Format("{0}{1}", this.getPlantelID(), usersq[cont][0].ToString());
+                       // MyUser.username = string.Format("{0}{1}", this.getPlantelID(), usersq[cont][0].ToString());
+                        MyUser.username = usersq[cont][0].ToString();
                         MyUser.password = usersq[cont][0].ToString();
-                        MyUser.firstname = "Profesor";
+                        MyUser.firstname = "PROFESOR";
                         MyUser.lastname = usersq[cont][1].ToString();
                         MyUser.email = usersq[cont][2].ToString().ToLower();
                         MyUser.course1 = usersq[cont][4].ToString();
@@ -360,3 +361,4 @@ namespace univer.extractions
 
     }
 }
+ 
