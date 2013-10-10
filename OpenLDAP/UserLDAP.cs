@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace univer.LDAP
 {
-    public class UserLDAP
+    public class UserLDAP : OpenLDAP
     {       
         public string cn { get; set; }
         public string sn { get; set; }
@@ -15,6 +15,19 @@ namespace univer.LDAP
         public string title { get; set; }
         public string description { get; set; }
         public string postalAddress { get; set; }
+
+        public UserLDAP(ConnLDAP conn) 
+        {
+            base.admin_username = conn.admin_username;
+            base.admin_password = conn.admin_password;
+            base.domain = conn.domain;
+            base.server = conn.server;
+        }
+
+        public bool Login() 
+        {
+            return this.AuthUser(this.cn, this.domain, this.userPassword);
+        }
 
         public void isValid() 
         {

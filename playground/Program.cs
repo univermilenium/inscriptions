@@ -19,6 +19,9 @@ using System.Security.Permissions;
 
 using System.Net;
 
+using univer.LDAP;
+
+
 namespace playground
 {
     class Program
@@ -79,6 +82,31 @@ namespace playground
             return sb.ToString();
         }
 
+
+        static void Main(string[] args) 
+        {
+             
+            ConnLDAP conn = new ConnLDAP();
+
+            conn.admin_username = "admin";
+            conn.admin_password = "ldap";
+            conn.domain         = "dc=online,dc=univer";
+            conn.server         = "192.168.61.39";
+
+            UserLDAP user = new UserLDAP(conn);
+            
+            // test login user;
+            user.cn = "admin";
+            user.userPassword = "ldap";
+            user.Login();
+
+
+
+
+
+        }
+
+        /*
         static void Main(string[] args)
         {
 
@@ -105,7 +133,7 @@ namespace playground
                // Console.ReadLine();
 
                 //Add User
-                /*
+             
                 string userDn2 = @"cn=admin,dc=online,dc=univer";
                 string fullPath2 = @"LDAP://192.168.61.39/dc=online,dc=univer";
                 DirectoryEntry entry = new DirectoryEntry(fullPath2, userDn2, "ldap", AuthenticationTypes.None);
@@ -120,7 +148,7 @@ namespace playground
 
                 objUser.CommitChanges();
                  * 
-                 * */
+            
 
 
 
@@ -157,5 +185,8 @@ namespace playground
                 Console.ReadLine();
             }
         }
+    */
+    
+    
     }
 }

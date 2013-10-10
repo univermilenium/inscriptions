@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.DirectoryServices;
+using System.DirectoryServices.Protocols;
+
+using System.Net;
 
 namespace univer.LDAP
 {
@@ -15,20 +18,45 @@ namespace univer.LDAP
         public string domain;
         public string server;
 
-
         public OpenLDAP() { }
 
-        public OpenLDAP(string adminuser, string adminpass, string domain, string server) 
+        public OpenLDAP(ConnLDAP conn) 
         {
-            this.admin_username = adminuser;
-            this.admin_password = adminpass;
-            this.domain = domain;
-            this.server = server;
+            this.admin_username = conn.admin_password;
+            this.admin_password = conn.admin_password;
+            this.domain = conn.domain;
+            this.server = conn.server;
         }
 
         private DirectoryEntry Entry() 
         {
             return new DirectoryEntry(string.Format("LDAP://{0}/{1}", this.server, this.domain), string.Format("cn={0},{1}", this.admin_username, this.domain), this.admin_password, AuthenticationTypes.None);
+        }
+
+        public bool AuthUser(string user, string domain,  string password) 
+        {
+            var credential = new NetworkCredential(string.Format("cn={0},{1}", user, domain), password);
+            var host = this.server;
+            try 
+            {
+                using (var con = new LdapConnection(host) { Credential = credential, AuthType = AuthType.Basic, AutoBind = false })
+                {
+                    con.SessionOptions.ProtocolVersion = 3;
+                    con.Bind();
+                    return true;
+                }
+            
+            }catch(System.Exception e)
+            {
+                throw e;
+            }
+
+        }
+
+        public PropertyCollection PropertiesUser() 
+        {
+            DirectoryEntry authuser = this.Entry();
+            return authuser.Properties;
         }
 
         public DirectoryEntry AddUser(UserLDAP user) 
