@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.DirectoryServices;
 using System.DirectoryServices.Protocols;
 
+using System.Collections; // IDictionary
 using System.Net;
 
 namespace univer.LDAP
@@ -28,9 +29,19 @@ namespace univer.LDAP
             this.server = conn.server;
         }
 
-        private DirectoryEntry Entry() 
+        private DirectoryEntry EntryAdmin()
         {
             return new DirectoryEntry(string.Format("LDAP://{0}/{1}", this.server, this.domain), string.Format("cn={0},{1}", this.admin_username, this.domain), this.admin_password, AuthenticationTypes.None);
+        }
+
+        private DirectoryEntry EntryAdmin(UserLDAP user)
+        {
+            return new DirectoryEntry(string.Format("LDAP://{0}/{1}", this.server, this.domain), string.Format("cn={0},{1}", user.cn, this.domain), user.userPassword, AuthenticationTypes.None);
+        }
+
+        private DirectoryEntry EntryAdmin(UserLDAP user, bool withAdminCredentials)
+        {
+            return new DirectoryEntry(string.Format("LDAP://{0}/cn={1},{2}", this.server, user.cn, this.domain), string.Format("cn={0},{1}", this.admin_username, this.domain), this.admin_password, AuthenticationTypes.None);
         }
 
         public bool AuthUser(string user, string domain,  string password) 
@@ -53,19 +64,59 @@ namespace univer.LDAP
 
         }
 
-        public PropertyCollection PropertiesUser() 
+        public PropertyCollection PropertiesUser(UserLDAP userl) 
         {
-            DirectoryEntry authuser = this.Entry();
-            return authuser.Properties;
+            DirectoryEntry user = this.EntryAdmin(userl);
+            return user.Properties;
+        }
+
+        public DirectoryEntry UpdateUser(UserLDAP user) 
+        {
+            System.DirectoryServices.PropertyCollection userProperties;
+            DirectoryEntry  oUser = this.EntryAdmin(user, true);
+            userProperties = oUser.Properties;
+
+            if (userProperties.Contains("sn"))
+            {
+                userProperties["sn"].Value = user.sn;
+            }
+
+            if (userProperties.Contains("seeAlso"))
+            {
+                userProperties["seeAlso"].Value = user.seeAlso;
+            }
+
+            if (userProperties.Contains("userPassword"))
+            {
+                userProperties["userPassword"].Value = user.userPassword;
+            }
+            
+            if (userProperties.Contains("title"))
+            {
+                userProperties["title"].Value = user.title;                
+            }
+
+            if (userProperties.Contains("description"))
+            {
+                userProperties["description"].Value = user.description;
+            }
+
+            if (userProperties.Contains("postalAddress"))
+            {
+                userProperties["postalAddress"].Value = user.postalAddress;
+            }
+
+            oUser.CommitChanges();
+
+            return oUser;
         }
 
         public DirectoryEntry AddUser(UserLDAP user) 
         {
-            DirectoryEntry objUser = this.Entry().Children.Add("cn=" + user.cn, "organizationalPerson");
+            DirectoryEntry objUser = this.EntryAdmin().Children.Add("cn=" + user.cn, "organizationalPerson");
 
             objUser.Properties["cn"].Add(user.cn);
             objUser.Properties["sn"].Add(user.sn);
-            objUser.Properties["seeAlso"].Add(user.seeAlso);
             objUser.Properties["userPassword"].Add(user.userPassword);
             objUser.Properties["title"].Add(user.title);
             objUser.Properties["description"].Add(user.description);

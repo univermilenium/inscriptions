@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.DirectoryServices;
+
 namespace univer.LDAP
 {
     public class UserLDAP : OpenLDAP
@@ -29,7 +31,32 @@ namespace univer.LDAP
             return this.AuthUser(this.cn, this.domain, this.userPassword);
         }
 
-        public void isValid() 
+        public DirectoryEntry Add() 
+        {
+            if (this.isValid()) 
+            {
+                return this.AddUser(this);
+            }
+
+            throw new Exception("Can't create user");
+        }
+
+        public DirectoryEntry Update() 
+        {
+            if (this.isValid()) 
+            {
+                return this.UpdateUser(this);
+            }
+
+            throw new Exception("Can't update user");
+        }
+
+        public PropertyCollection Properties() 
+        {
+            return this.PropertiesUser(this);
+        }
+
+        public bool isValid() 
         {
             this.isValidCn();
             this.isValidSeeAlso();
@@ -37,6 +64,8 @@ namespace univer.LDAP
             this.isValidTitle();
             this.isValidDescription();
             this.IsValidEmail();
+
+            return true;
         }
 
         private void isValidCn() 

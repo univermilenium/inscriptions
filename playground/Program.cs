@@ -85,24 +85,50 @@ namespace playground
 
         static void Main(string[] args) 
         {
-             
+            //Crear conexión LDAP
             ConnLDAP conn = new ConnLDAP();
 
             conn.admin_username = "admin";
             conn.admin_password = "ldap";
             conn.domain         = "dc=online,dc=univer";
-            conn.server         = "192.168.61.39";
+            conn.server         = "192.168.61.43";
 
+            //Crear un usuario nuevo en LDAP
             UserLDAP user = new UserLDAP(conn);
-            
-            // test login user;
-            user.cn = "admin";
-            user.userPassword = "ldap";
-            user.Login();
 
+            user.cn            = "test01";
+            user.sn            = "Tester del Tester";
+            user.title         = "HQ";
+            user.description   = "Polanco";
+            user.postalAddress = "moises.rangel@gmail.com";
 
+            user.userPassword = "test01";
 
+            DirectoryEntry MyUser = user.Add();
 
+            if (user.Login())
+            {
+                PropertyCollection properties = user.Properties();
+                if (properties.Count > 0) 
+                {
+                    foreach (PropertyValueCollection property in properties) 
+                    {
+                        Console.WriteLine(string.Format("{0}: {1}", property.PropertyName.ToString(), property.Value.ToString()));
+                    }
+
+                    Console.ReadLine();
+                }
+
+                user.sn = "Nombre Modificado";
+                user.title = "Title modificado";
+                user.description = "Description Modificado";
+                user.postalAddress = "postalAddress Modificado";
+                user.userPassword = "newPass";
+
+                user.Update();
+
+                user.Login();
+            }
 
         }
 
