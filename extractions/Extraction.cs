@@ -211,6 +211,8 @@ namespace univer.extractions
                             this.Users.Add(MyUser);
                             Console.WriteLine(string.Format("Se agrega {0} al envio...", MyUser.username));
                         }
+
+
                     }
                     catch(Exception oe) 
                     {

@@ -50,7 +50,7 @@
       <HintPath>..\Inscriptions\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="FirebirdSql.Data.FirebirdClient">
-      <HintPath>..\..\..\..\Downloads\NETProvider-3.1.1.0-NET40\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+      <HintPath>..\..\..\FirebirdSql.Data.FirebirdClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -82,6 +82,10 @@
     <ProjectReference Include="..\Inscriptions\Moodle\Moodle.csproj">
       <Project>{dd5146a2-862e-4d46-9cb7-128aac54acc0}</Project>
       <Name>Moodle</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenLDAP\OpenLDAP.csproj">
+      <Project>{270f03b1-3bbb-42fa-ac14-3ff9a463d709}</Project>
+      <Name>OpenLDAP</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

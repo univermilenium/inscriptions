@@ -9,6 +9,8 @@ using System.DirectoryServices.Protocols;
 using System.Collections; // IDictionary
 using System.Net;
 
+using System.Security.Cryptography;
+
 namespace univer.LDAP
 {
     public class OpenLDAP
@@ -28,7 +30,7 @@ namespace univer.LDAP
             this.domain = conn.domain;
             this.server = conn.server;
         }
-
+        
         private DirectoryEntry EntryAdmin()
         {
             return new DirectoryEntry(string.Format("LDAP://{0}/{1}", this.server, this.domain), string.Format("cn={0},{1}", this.admin_username, this.domain), this.admin_password, AuthenticationTypes.None);
@@ -125,6 +127,28 @@ namespace univer.LDAP
             objUser.CommitChanges();
 
             return objUser;
+        }
+        
+        static private string GetSHA1(string str)
+        {
+            SHA1 sha1 = SHA1Managed.Create();
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] stream = null;
+            StringBuilder sb = new StringBuilder();
+            stream = sha1.ComputeHash(encoding.GetBytes(str));
+            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
+            return sb.ToString();
+        }
+        
+        static private string GetMD5(string str)
+        {
+            MD5 md5 = MD5CryptoServiceProvider.Create();
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] stream = null;
+            StringBuilder sb = new StringBuilder();
+            stream = md5.ComputeHash(encoding.GetBytes(str));
+            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
+            return sb.ToString();
         }
     }
 }
