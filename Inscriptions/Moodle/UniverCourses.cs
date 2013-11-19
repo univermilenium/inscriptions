@@ -9,7 +9,8 @@ namespace univer.moodle
     public class UniverCourses
     {
         static public int MPS0101  = 1;
-        static public int MDER0101 = 2;
+        //static public int MDER0101 = 2;
+        static public int cursoaws = 2;
         static public int CRIM0103 = 3;
         static public int MPEG0103 = 4;
         static public int PRUEBA = 5;

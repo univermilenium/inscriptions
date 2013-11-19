@@ -61,9 +61,8 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FirebirdSql.Data.FirebirdClient, Version=3.0.2.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files\Telerik\OpenAccess ORM\bin\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+    <Reference Include="FirebirdSql.Data.FirebirdClient">
+      <HintPath>..\FirebirdSql.Data.FirebirdClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -98,10 +97,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\extractions\extractions.csproj">
-      <Project>{476d2e7a-0c1b-403a-918c-0ac6db8f71d9}</Project>
-      <Name>extractions</Name>
-    </ProjectReference>
     <ProjectReference Include="Moodle\Moodle.csproj">
       <Project>{dd5146a2-862e-4d46-9cb7-128aac54acc0}</Project>
       <Name>Moodle</Name>

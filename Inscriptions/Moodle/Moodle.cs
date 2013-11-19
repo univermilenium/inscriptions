@@ -83,29 +83,43 @@ namespace univer.moodle
             }
             else
             {
+                //
                 status = true;
             }
 
             return status;
         }
 
-        public MoodleCourse getCourse(string shortname) 
+        //public MoodleCourse getIdCourse(string shortname) 
+        //{
+        //    MoodleCourse mcourse  = new MoodleCourse();
+        //    UniverCourses courses = new UniverCourses();
+
+        //    //try
+        //    //{
+        //        mcourse.id = courses.getID(shortname);
+        //        mcourse.name = shortname;
+        //    //}
+        //    //catch (System.Exception oe)
+        //    //{
+        //    //    throw new Exception(string.Format("No existe el curso: {0}. {1}", shortname, oe.Message.ToString()));
+        //    //}
+            
+        //    return mcourse;
+        //}
+
+        public bool VerifyCourse(string shortname)
         {
-            MoodleCourse mcourse  = new MoodleCourse();
+            MoodleCourse mcourse = new MoodleCourse();
             UniverCourses courses = new UniverCourses();
 
-            try
-            {
-                mcourse.id = courses.getID(shortname);
-                mcourse.name = shortname;
-            }
-            catch (System.Exception oe) 
-            {
-                throw new Exception(string.Format("No existe el curso: {0}. {1}", shortname, oe.Message.ToString()));
-            }
-            
-            return mcourse;
+            mcourse.id = courses.getID(shortname);
+            mcourse.name = shortname;
+
+            string postData = string.Format("options[ids][0]={0}", mcourse.id);
+            return this.executeWs(postData, "core_course_get_courses");
         }
+
         
         public bool addGroupMembers(MoodleUser user, MoodleGroup group) 
         {
@@ -113,15 +127,15 @@ namespace univer.moodle
             return this.executeWs(postData, "core_group_add_group_members");
         }
 
-        public bool EnrolUserToCourse(MoodleUser user, MoodleCourse course, int roleid, int? timestart, int? timeend, int? suspend) 
+        public bool VerifyUser(string key, string username)
         {
-            string postData      = string.Format("enrolments[0][roleid]={0}&enrolments[0][userid]={1}&enrolments[0][courseid]={2}&enrolments[0][timestart]={3}&enrolments[0][timeend]={4}&enrolments[0][suspend]={5}", roleid, user.id, course.id, timestart, timeend, suspend);
-            return this.executeWs(postData, "enrol_manual_enrol_users");
+            string postData = string.Format("criteria[0][key]={0}&criteria[0][value]={1}", key, username);
+            return this.executeWs(postData, "core_user_get_users");
         }
 
         public bool CreateUser(MoodleUser user) 
         {
-            string postData      = string.Format("users[0][username]={0}&users[0][password]={1}&users[0][firstname]={2}&users[0][lastname]={3}&users[0][email]={4}", user.username, user.password, user.firstname, user.lastname, user.email);
+            string postData = string.Format("users[0][username]={0}&users[0][password]={1}&users[0][firstname]={2}&users[0][lastname]={3}&users[0][email]={4}", user.username, user.password, user.firstname, user.lastname, user.email);
             return this.executeWs(postData, "core_user_create_users");
         }
 
@@ -129,6 +143,12 @@ namespace univer.moodle
         {
             string postData = string.Format("groups[0][courseid]={0}&groups[0][name]={1}&groups[0][description]={2}", course.id, name, description);
             return this.executeWs(postData, "core_group_create_groups");
+        }
+
+        public bool EnrolUserToCourse(MoodleUser user, MoodleCourse course, int roleid, int? timestart, int? timeend, int? suspend)
+        {
+            string postData = string.Format("enrolments[0][roleid]={0}&enrolments[0][userid]={1}&enrolments[0][courseid]={2}&enrolments[0][timestart]={3}&enrolments[0][timeend]={4}&enrolments[0][suspend]={5}", roleid, user.id, course.id, timestart, timeend, suspend);
+            return this.executeWs(postData, "enrol_manual_enrol_users");
         }
 
         public string getSingleValueResponse(string key)

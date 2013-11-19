@@ -9,6 +9,7 @@ namespace univer.moodle
     public class MoodleCourse
     {
         public string name { get; set; }
-        public int id { get; set; } 
+        public int id { get; set; }
+        public string shortname { get; set; }
     }
 }

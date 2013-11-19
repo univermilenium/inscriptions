@@ -24,8 +24,8 @@
             user.email = "test23@gmail.com";
             user.username = "test23";
 
-            Moodle.Instance.token = "a470930b7e19172703769387b93c761e";
-            Moodle.Instance.domain = "elearning.univermilenium.edu.mx";
+            Moodle.Instance.token = "828b4f2b0836a6b18e9a0a515e5b0ad8";
+            Moodle.Instance.domain = "ec2-54-234-253-120.compute-1.amazonaws.com/moodle/";
             Moodle.Instance.CreateUser(user);
             */
 
@@ -41,7 +41,7 @@
             course.id = 32;
 
             Moodle.Instance.token = "a470930b7e19172703769387b93c761e";
-            Moodle.Instance.domain = "elearning.univermilenium.edu.mx";
+            Moodle.Instance.domain = "ec2-54-234-253-120.compute-1.amazonaws.com/moodle/";
             Moodle.Instance.EnrolUserToCourse(user, course, 1, 0, 0, 0);
              */
 
